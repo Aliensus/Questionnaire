@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val questions = questions.map {it ->
-            it.questionContent.uppercase()
+            it.questionContent.uppercase() + R.string.app_name
         }
     }
 }
