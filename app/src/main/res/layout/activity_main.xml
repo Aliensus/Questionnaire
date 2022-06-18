@@ -2,10 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/questionnaireWindow"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".presentation.MainActivity">
+    android:visibility="visible"
+    tools:context=".presentation.MainActivity"
+    tools:visibility="visible">
 
     <TextView
         android:id="@+id/testHeaderTv"
@@ -13,6 +16,7 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:textStyle="bold|italic"
+        android:visibility="visible"
         tools:text="Заголовок теста"
         tools:visibility="visible" />
 
@@ -20,22 +24,29 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/questionsContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/questionHeaderTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Вопрос" />
+            tools:text="Вопрос"
+            tools:visibility="visible" />
 
         <ListView
             android:id="@+id/answerList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/questionHeaderTv" />
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/questionHeaderTv"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
