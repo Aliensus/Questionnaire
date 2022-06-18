@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Questionnaire</string>
+    <string name="question_prefix">Вопрос %d:</string>
 </resources>

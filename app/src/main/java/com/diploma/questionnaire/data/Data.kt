@@ -29,10 +29,11 @@ object Data {
                     id = 2,
                     answerContent = "Главном",
                     correctnessRate = MAXIMALLY_CORRECT_ANSWER_RATE,
+                    isSelected = true
                 ),
                 Answer(
                     id = 3,
-                    answerContent = "Среднем",
+                    answerContent = "Среднем, очень сильно среднем потоке, среднее не бывает",
                     correctnessRate = WRONG_ANSWER_RATE,
                 ),
             ),
@@ -51,8 +52,9 @@ object Data {
                 ),
                 Answer(
                     id = 2,
-                    answerContent = "Fragment",
+                    answerContent = "Fragment конструкторе, только вместо массива данных, мы указываем массив строк в ресурсах, который мы создали чуть раньше. В качестве layout-ресурса для пунктов используем системный simple_list_item_single_choice. Он как раз заточен под такое использование",
                     correctnessRate = -MAXIMALLY_CORRECT_ANSWER_RATE / 4,
+                    isSelected = true
                 ),
                 Answer(
                     id = 3,
@@ -63,6 +65,7 @@ object Data {
                     id = 4,
                     answerContent = "Class",
                     correctnessRate = -MAXIMALLY_CORRECT_ANSWER_RATE / 4,
+                    isSelected = true
                 ),
                 Answer(
                     id = 5,
