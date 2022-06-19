@@ -12,6 +12,7 @@
         android:id="@+id/testHeaderTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:textSize="24sp"
         android:textStyle="bold|italic"
         android:visibility="visible"
@@ -23,14 +24,18 @@
         android:id="@+id/questionsContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#E6E6E6"
         android:orientation="vertical"
-        tools:visibility="visible">
+        android:padding="8dp"
+        android:visibility="visible"
+        tools:visibility="gone">
 
         <TextView
             android:id="@+id/questionHeaderTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
+            android:textStyle="bold"
             tools:text="Вопрос 1:"
             tools:visibility="visible" />
 
@@ -38,7 +43,8 @@
             android:id="@+id/questionContentTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:layout_marginBottom="8dp"
+            android:textSize="20sp"
             tools:text="В каком потоке работает сервис? И зачем он там работает? И сколько всё это будет продолжаться?"
             tools:visibility="visible" />
 
@@ -46,18 +52,126 @@
             android:id="@+id/answerListView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/questionHeaderTv"
-            tools:visibility="visible" />
+            app:layout_constraintTop_toBottomOf="@+id/questionHeaderTv" />
+
+        <LinearLayout
+            android:id="@+id/buttonsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#E6E6E6"
+            android:orientation="horizontal"
+            tools:visibility="visible">
+
+            <Button
+                android:id="@+id/prevButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                android:layout_weight="0.5"
+                android:text="@string/label_back" />
+
+            <Button
+                android:id="@+id/nextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                android:layout_weight="0.5"
+                android:text="@string/label_next" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/resultContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:visibility="gone"
+        tools:visibility="visible">
 
+        <TextView
+            android:id="@+id/resultLabelTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Результаты теста:"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/answersLabelTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Дано ответов на вопросы:"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/resultLabelTv" />
+
+        <TextView
+            android:id="@+id/answersInfoTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/answersLabelTv"
+            app:layout_constraintTop_toBottomOf="@+id/resultLabelTv"
+            tools:text="3 из 10 (33%)" />
+
+        <TextView
+            android:id="@+id/pointsLabelTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Набрано баллов:"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/answersInfoTv" />
+
+        <TextView
+            android:id="@+id/pointsInfoTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/pointsLabelTv"
+            app:layout_constraintTop_toBottomOf="@+id/answersInfoTv"
+            tools:text="255 из 1000 (23%)" />
+
+        <Button
+            android:id="@+id/startButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="Пройти заново"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/exitButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/exitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="Выйти"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/startButton" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

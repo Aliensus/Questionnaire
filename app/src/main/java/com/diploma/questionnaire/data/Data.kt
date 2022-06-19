@@ -14,6 +14,9 @@ const val TEST_HEADER = "Тест на знание Android"
 // В приложении доступ к вопросам осуществляется через переменную questions
 object Data {
 
+    var currentQuestionCounter = 0
+    var isTestFinished = false
+
     val questions: List<Question> = listOf(
         // ВОПРОС 1 =========================================================
         Question(

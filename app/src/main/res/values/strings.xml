@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Questionnaire</string>
-    <string name="question_prefix">Вопрос %d:</string>
+    <string name="question_prefix">Вопрос %1d из %2d:</string>
+    <string name="label_back"><![CDATA[< Назад]]></string>
+    <string name="label_next"><![CDATA[Дальше >]]></string>
+    <string name="label_finish">Закончить тест</string>
+    <string name="label_start">Пройти заново</string>
+    <string name="label_exit">Выйти</string>
 </resources>
