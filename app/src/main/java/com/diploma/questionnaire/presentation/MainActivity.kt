@@ -15,11 +15,16 @@ import com.diploma.questionnaire.data.Data.currentQuestionCounter
 import com.diploma.questionnaire.data.Data.questions
 import com.diploma.questionnaire.data.Data.isTestFinished
 import com.diploma.questionnaire.data.TEST_HEADER
+import com.diploma.questionnaire.domain.MAXIMALLY_CORRECT_ANSWER_RATE
+import com.diploma.questionnaire.domain.RatePolicy
+import com.diploma.questionnaire.domain.WRONG_ANSWER_RATE
 
 class MainActivity : AppCompatActivity() {
     private lateinit var testHeaderTv : TextView
     private lateinit var questionHeaderTv : TextView
     private lateinit var questionContentTv : TextView
+    private lateinit var answersInfoTv : TextView
+    private lateinit var pointsInfoTv : TextView
     private lateinit var answerListView: ListView
     private lateinit var nextButton: Button
     private lateinit var prevButton: Button
@@ -36,6 +41,8 @@ class MainActivity : AppCompatActivity() {
         testHeaderTv.text = TEST_HEADER
         questionHeaderTv = findViewById(R.id.questionHeaderTv)
         questionContentTv = findViewById(R.id.questionContentTv)
+        answersInfoTv = findViewById(R.id.answersInfoTv)
+        pointsInfoTv = findViewById(R.id.pointsInfoTv)
         answerListView = findViewById(R.id.answerListView)
         nextButton = findViewById(R.id.nextButton)
         prevButton = findViewById(R.id.prevButton)
@@ -55,6 +62,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    // Ф-ция управляет видимостью и надписями на кнопках навигации,
+    // в зависимости от номера текущего вопроса
     private fun manageButtonsVisibility() {
         if (currentQuestionCounter == 0) {
             prevButton.isEnabled = false
@@ -68,6 +77,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Ф-ция управляет видимостью двух основных контейнеров (экранов)
     private fun manageContainersVisibility() {
         if (isTestFinished) {
             questionsContainer.visibility = View.GONE
@@ -78,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Ф-ция показывает на экране вопрос с номером questionId и вариантами ответа
     private fun showCurrentQuestion(questionId: Int) {
         val currentQuestion = questions[questionId]
         questionHeaderTv.text = getString(
@@ -108,9 +119,44 @@ class MainActivity : AppCompatActivity() {
         manageButtonsVisibility()
     }
 
+    // После окончания теста вычисляет набранные баллы и показывает результаты теста на экране
     private fun showTestResults() {
         manageContainersVisibility()
-
+        var questionsAnswered = 0
+        var pointsScored = 0
+        questions.forEach { question ->
+            if (question.isAnswered) {
+                questionsAnswered++
+                when (question.ratePolicy) {
+                    RatePolicy.ALL_OR_NOTHING -> {
+                        val wrongAnswer = question.answers.firstOrNull {
+                            it.correctnessRate == MAXIMALLY_CORRECT_ANSWER_RATE && !it.isSelected ||
+                                it.correctnessRate == WRONG_ANSWER_RATE && it.isSelected
+                        }
+                        if (wrongAnswer == null) {
+                            pointsScored = pointsScored + MAXIMALLY_CORRECT_ANSWER_RATE
+                        }
+                    }
+                    RatePolicy.ADD_RATES -> {
+                        var currentRate = 0
+                        question.answers.forEach {
+                            if (it.isSelected) currentRate = currentRate + it.correctnessRate
+                        }
+                        if (currentRate > MAXIMALLY_CORRECT_ANSWER_RATE) {
+                            currentRate = MAXIMALLY_CORRECT_ANSWER_RATE
+                        }
+                        if (currentRate < WRONG_ANSWER_RATE) {
+                            currentRate = WRONG_ANSWER_RATE
+                        }
+                        pointsScored = pointsScored + currentRate
+                    }
+                }
+            }
+        }
+        answersInfoTv.text = "${questionsAnswered} из ${questions.size}" +
+            " (${100 * questionsAnswered / questions.size}%)"
+        pointsInfoTv.text = "$pointsScored из ${questions.size * MAXIMALLY_CORRECT_ANSWER_RATE}" +
+            " (${100 * pointsScored / questions.size / MAXIMALLY_CORRECT_ANSWER_RATE}%)"
     }
 
     private fun onNextButtonClickListener() {
