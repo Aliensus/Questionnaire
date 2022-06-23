@@ -37,8 +37,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        testHeaderTv = findViewById(R.id.testHeaderTv)
-        testHeaderTv.text = TEST_HEADER
+        //testHeaderTv = findViewById(R.id.testHeaderTv)
+        //testHeaderTv.text = TEST_HEADER
         questionHeaderTv = findViewById(R.id.questionHeaderTv)
         questionContentTv = findViewById(R.id.questionContentTv)
         answersInfoTv = findViewById(R.id.answersInfoTv)

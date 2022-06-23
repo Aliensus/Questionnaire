@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Questionnaire</string>
+    <string name="app_name">Тест по программированию</string>
     <string name="question_prefix">Вопрос %1d из %2d:</string>
     <string name="label_back"><![CDATA[< Назад]]></string>
     <string name="label_next"><![CDATA[Дальше >]]></string>
