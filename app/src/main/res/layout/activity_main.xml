@@ -6,19 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:visibility="visible">
-
-
-<!--    <TextView-->
-<!--        android:id="@+id/testHeaderTv"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center_horizontal"-->
-<!--        android:textSize="24sp"-->
-<!--        android:textStyle="bold|italic"-->
-<!--        android:visibility="invisible"-->
-<!--        tools:text="Заголовок теста"-->
-<!--        tools:visibility="invisible" />-->
+    tools:visibility="gone">
 
 
     <LinearLayout
@@ -95,7 +83,7 @@
         android:layout_height="match_parent"
         android:padding="10dp"
         android:visibility="gone"
-        tools:visibility="invisible">
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/resultLabelTv"
@@ -156,6 +144,30 @@
             app:layout_constraintTop_toBottomOf="@+id/answersInfoTv"
             tools:text="255 из 1000 (23%)"
             tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/themeListLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Темы для повторения:"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pointsInfoTv"
+            tools:visibility="visible" />
+
+        <ListView
+            android:id="@+id/themeListView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/startButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/themeListLabel" />
 
         <Button
             android:id="@+id/startButton"

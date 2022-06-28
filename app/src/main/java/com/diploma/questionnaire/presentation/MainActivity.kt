@@ -14,13 +14,13 @@ import com.diploma.questionnaire.R
 import com.diploma.questionnaire.data.Data.currentQuestionCounter
 import com.diploma.questionnaire.data.Data.questions
 import com.diploma.questionnaire.data.Data.isTestFinished
-import com.diploma.questionnaire.data.TEST_HEADER
+//import com.diploma.questionnaire.data.TEST_HEADER
 import com.diploma.questionnaire.domain.MAXIMALLY_CORRECT_ANSWER_RATE
 import com.diploma.questionnaire.domain.RatePolicy
 import com.diploma.questionnaire.domain.WRONG_ANSWER_RATE
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var testHeaderTv : TextView
+    //private lateinit var testHeaderTv : TextView
     private lateinit var questionHeaderTv : TextView
     private lateinit var questionContentTv : TextView
     private lateinit var answersInfoTv : TextView
@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var exitButton: Button
     private lateinit var questionsContainer: LinearLayout
     private lateinit var resultContainer: ConstraintLayout
+    private lateinit var themeListView: ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         exitButton = findViewById(R.id.exitButton)
         questionsContainer = findViewById(R.id.questionsContainer)
         resultContainer = findViewById(R.id.resultContainer)
+        themeListView = findViewById(R.id.themeListView)
 
         manageContainersVisibility()
         showCurrentQuestion(currentQuestionCounter)
@@ -124,6 +126,7 @@ class MainActivity : AppCompatActivity() {
         manageContainersVisibility()
         var questionsAnswered = 0
         var pointsScored = 0
+        var themes = mutableListOf<String>()
         questions.forEach { question ->
             if (question.isAnswered) {
                 questionsAnswered++
@@ -135,6 +138,7 @@ class MainActivity : AppCompatActivity() {
                         }
                         if (wrongAnswer == null) {
                             pointsScored = pointsScored + MAXIMALLY_CORRECT_ANSWER_RATE
+                            question.isCorrectlyAnswered = true
                         }
                     }
                     RatePolicy.ADD_RATES -> {
@@ -149,14 +153,26 @@ class MainActivity : AppCompatActivity() {
                             currentRate = WRONG_ANSWER_RATE
                         }
                         pointsScored = pointsScored + currentRate
+                        if (currentRate == MAXIMALLY_CORRECT_ANSWER_RATE) {
+                            question.isCorrectlyAnswered = true
+                        }
                     }
                 }
+            }
+            if(!question.isCorrectlyAnswered){
+                themes.add(question.theme)
             }
         }
         answersInfoTv.text = "${questionsAnswered} из ${questions.size}" +
             " (${100 * questionsAnswered / questions.size}%)"
         pointsInfoTv.text = "$pointsScored из ${questions.size * MAXIMALLY_CORRECT_ANSWER_RATE}" +
             " (${100 * pointsScored / questions.size / MAXIMALLY_CORRECT_ANSWER_RATE}%)"
+
+        themeListView.adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_list_item_1,
+            themes
+        )
     }
 
     private fun onNextButtonClickListener() {
@@ -177,6 +193,7 @@ class MainActivity : AppCompatActivity() {
     private fun clearAllUserResults() {
         questions.forEach { question ->
             question.isAnswered = false
+            question.isCorrectlyAnswered = false
             question.answers.forEach { it.isSelected = false }
         }
         currentQuestionCounter = 0

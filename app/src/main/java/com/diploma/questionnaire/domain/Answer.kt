@@ -13,6 +13,6 @@ const val WRONG_ANSWER_RATE = 0
 data class Answer(
     val id: Int, // номер ответа
     val answerContent: String, // текст ответа для вывода на экран
-    val correctnessRate: Int, // количество баллов за правильный ответ, ограничено константами (см.выше)
-    var isSelected: Boolean = false, // признак: выбран ли этот ответ пользователем на экране
+    val correctnessRate: Int, // количество баллов за правильный ответ
+    var isSelected: Boolean = false, // признак: выбран ли этот ответ пользователем
 )
