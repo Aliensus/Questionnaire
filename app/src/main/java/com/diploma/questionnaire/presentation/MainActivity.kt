@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         manageContainersVisibility()
         var questionsAnswered = 0
         var pointsScored = 0
-        var themes = mutableListOf<String>()
+        var themes = mutableSetOf<String>()
         questions.forEach { question ->
             if (question.isAnswered) {
                 questionsAnswered++
@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity() {
         themeListView.adapter = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
-            themes
+            themes.toList()
         )
     }
 
